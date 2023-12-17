@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.B1lly.app.DAO.BookDAO">
+    <insert id="addBook">
+        insert into book(bID,bName,author,price,availability,IsDeleted) values(#{bId},#{bName},#{author},#{price},0,0)
+    </insert>
+    <update id="editBook">
+        update book set bName=#{bName},author=#{author},price=#{price} where bId=#{bId}
+    </update>
+    <delete id="deleteBook">
+        update book set IsDeleted=1 where bId=#{bid}
+    </delete>
+<!--    查询图书的信息-->
+    <select id="listPage" resultType="com.B1lly.app.bean.Book">
+        select * from Book
+        <where>
+            <if test="bname != null and bname !=''">
+                bname like '%${bname}%'
+            </if>
+            and IsDeleted=0
+        </where>
+        limit #{page},#{size}
+    </select>
+<!--    查询图书的价格-->
+    <select id="listBookPrice" resultType="com.B1lly.app.bean.Book">
+        select bId,bName,price from book
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(bId) from book <where>
+        <if test="bname != null and bname !=''">
+            bname like '%${bname}%'
+        </if>
+        and IsDeleted=0
+    </where>
+    </select>
+</mapper>

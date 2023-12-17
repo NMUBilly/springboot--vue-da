@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 113514
+    url: jdbc:mysql:///db01?serverTime=UTC
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com:
+      B1lly:
+        app:
+          DAO: debug
